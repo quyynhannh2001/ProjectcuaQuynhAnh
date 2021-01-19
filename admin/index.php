@@ -19,7 +19,7 @@ if (file_exists($path)) {
 	require_once("config/close.php");
 }
 else{
-	require_once("index.php?module=common&action=404.php");
+	require_once("common/404.php");
 }
 
  ?>

@@ -1,61 +1,65 @@
 <?php 
 $title = "Danh sách sản phẩm";
-require_once ("layout/header.php"); 
-// include "connect.php";
-// $sql = "SELECT * FROM products";
+require_once ("layout/header.php");
 
-// // Xu li phan trang
-// if(isset($_GET['page'])){
-// 	$page = $_GET['page'];
-// }
-// else{
-// 	$page = 1;
-// }
+require_once ("config/connect.php");
+$sql = "SELECT * FROM products";
+if(isset($_GET['page'])){
+	$page = $_GET['page'];
+}
+else{
+	$page = 1;
+}
+$tong_sp = mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(id) as 'tong_sp' FROM `products`"))['tong_sp'];
+$limit = 3;
+$tong_so_trang = ceil($tong_sp/$limit);
+if($page > $tong_so_trang){
+	$page = $tong_so_trang;
+}
+if($page < 1){
+	$page = 1;
+}
+$offset = ($page - 1)* $limit;
 
-// // Cần lấy ra tổng sp ở database
-// $tong_sp = mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(id) as 'tong_sp' FROM `san_pham`"))['tong_sp'];
-
-// // Tinh tong so trang
-// $limit = 3;
-// $tong_so_trang = ceil($tong_sp/$limit);
-
-// // Kiem tra xem nguoi dung co nhap so trang > tong_so_trang
-// if($page > $tong_so_trang){
-// 	$page = $tong_so_trang;
-// }
-// // Kiem tra page < 1
-// if($page < 1){
-// 	$page = 1;
-// }
-
-// // Tinh offset
-// $offset = ($page - 1)* $limit;
-
-// // Tao cau lenh SQL
-// $sql = $sql." LIMIT $offset,$limit";
-
-// // Chay cau lenh
-// $result = mysqli_query($conn,$sql);
-// if($result == false){
-// 	// Cu phap sai
-// 	$error = mysqli_error($conn);
-// 	mysqli_close($conn);
-// 	die($error);
-// }
-// require_once("close.php");
+$sql = $sql." LIMIT $offset,$limit";
+$result = mysqli_query($conn,$sql);
+if($result == false){
+	$error = mysqli_error($conn);
+	require_once("config/close.php");
+	die($error);
+}
+require_once("config/close.php");
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title></title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style type="text/css">
+		table{
+			width: 100%;
+			border-collapse:collapse;
+			border: 2px solid black;
+			text-align: center;
+			font-size: large;
+
+		}
+		tr, th, td{
+			border: 2px solid black;
+		}
+		a{
+			text-decoration: none;
+		}
+
+		
+	</style>
 </head>
-<body>
-	<h2>Danh sách sản phẩm</h2>
-	<br>
-    <a href="?page=<?php if($page > 1) {echo ($page-1);} else echo $page; ?>">Previous</a>
-    <b><?php echo $page; ?></b>
-    <a href="?page=<?php if($page < $tong_so_trang) {echo ($page+1);} else echo $page; ?>">Next</a>
-  <br><br>
+<body style="text-align: center;"> 
+		<a href="index.php?module=products&action=list&page=<?php if($page > 1) {echo ($page-1);} else echo $page; ?>" ><i class="fa fa-arrow-left" style="font-size:24px"></i></a>
+	    <b style="font-size: 25px;"><?php echo $page; ?></b>
+	    <a href="index.php?module=products&action=list&page=<?php if($page < $tong_so_trang) {echo ($page+1);} else echo $page; ?>"><i class="fa fa-arrow-right" style="font-size:24px"></i></a>
+ 
+  <br><br> 
 	<table>
 		<tr>
 			<th>ID</th>
@@ -65,11 +69,12 @@ require_once ("layout/header.php");
 			<th>Mô tả</th>
 			<th>Tình trạng</th>
 			<th>Kiểu</th>
-			<th>Xuất xứ</th>
+			<th>Thương hiệu</th>
+			<th>Thao tác</th>
 		</tr>
 		<?php 
 			if(mysqli_num_rows($result)==0){
-				echo "<h2>Không có sản phẩm</h2>";
+				echo "<tr><td colspan = '9'><i>Chưa có sản phẩm nào...</i></td></tr>";
 			}
 			else{
 				foreach($result as $row){
@@ -78,13 +83,70 @@ require_once ("layout/header.php");
 						echo "<td>".$row['name']."</td>";
 						echo "<td>";
 							$url = $row['url'];
-							echo "<img src='$url' width='200px' >";
+							echo "<img src='$url' width='130.49px' >";
 						echo "</td>";
 						echo "<td>".$row['price']."</td>";
 						echo "<td>".$row['description']."</td>";
-						echo "<td>".$row['status']."</td>";
-						echo "<td>".$row['id_type']."</td>";
-						echo "<td>".$row['id_brand']."</td>";
+						$status = "";
+						
+							if ($row['status'] == 1) {
+								$status = "Còn";
+								// echo $status;
+							}
+							else{
+								$status = "Hết";
+								// echo $status;
+							}
+						echo "<td>".$status."</td>";
+							$type = "";
+							if ($row['id_type'] == 1) {
+								$type = "Chăm sóc sắc đẹp";
+								// echo $type;
+							}
+							elseif ($row['id_type'] == 2) {
+								$type = "Chăm sóc cá nhân";
+								// echo $type;
+							}
+							elseif ($row['id_type'] == 3) {
+								$type = "Chăm sóc sức khỏe";
+								// echo $type;
+							}
+							elseif ($row['id_type'] == 4) {
+								$type = "Dành cho phái mạnh";
+								// echo $type;
+							}
+							elseif ($row['id_type'] == 5) {
+								$type = "Thời trang và phụ kiện";
+								// echo $type;
+							}
+							else {
+								$type = "Chăm sóc da mụn";
+								// echo $type;
+							}
+						echo "<td>".$type."</td>";
+						$brand = "";
+						if ($row['id_brand'] == 1) {
+							$brand = "MAC";
+							// echo $brand;
+						}
+						elseif ($row['id_brand'] == 2) {
+							$brand = "BBIA";
+							// echo $brand;
+						}
+						elseif ($row['id_brand'] == 3) {
+							$brand = "ROMANO";
+							// echo $brand;
+						}
+						elseif ($row['id_brand'] == 4) {
+							$brand = "SAKURA";
+							// echo $brand;
+						}
+						else{
+							$brand = "3CE";
+							// echo $brand;
+						}
+						echo "<td>".$brand."</td>";
+						
 					echo "</tr>";
 				}
 			}

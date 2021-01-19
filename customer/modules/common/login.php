@@ -78,8 +78,10 @@
 				<input type="password" name="pass" placeholder="Mật khẩu" required="" style="height: 25px; width: 250px;">
 				<br><br>
 				<button type="submit" name="btn" style="height: 25px;"><b>Đăng nhập</b></button>
-				<button style="height: 25px;"><a href="index.php?module=common&action=register" style="text-decoration: none; color: black;"><b>Đăng ký</b></a></button>
+<!-- 				<button style="height: 25px;"><a href="index.php?module=common&action=register" style="text-decoration: none; color: black;"><b>Đăng ký</b></a></button> -->
 			</form>
+			<br>
+			Bạn chưa có tài khoản?<a href="index.php?module=common&action=register"><b>Đăng ký</b></a>
 		</div>
 	</div>
 </body>

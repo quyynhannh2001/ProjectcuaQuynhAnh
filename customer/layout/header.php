@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html>
 <head>
 	<title><?php echo $title; ?></title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="icon" href="../public/qa.png" type="image/icon type">
 	<script src="https://kit.fontawesome.com/yourcode.js"></script>
 	<style type="text/css">
 		*{
@@ -36,13 +38,13 @@
 			float: left;
 		}
 		#giua{
-			width: 60%;
+			width: 50%;
 			height: 70px;
 			float: left;
 			text-align: center;
 		}
 		#phai{
-			width: 15%;
+			width: 25%;
 			height: 70px;
 			float: left;
 			text-align: right;
@@ -175,10 +177,39 @@
 			padding-left: 8px;
 
 		}
-		
-		
-		
+		#phai a{
+			text-decoration: none;
+			font-size: larger;
 
+
+		}
+		/*#phai li{
+			position: relative;
+		}
+		.sub-menu{
+			display: none;
+			position: absolute;
+			background-color: white;
+		}
+
+		#phai li:hover .sub-menu{
+			display: block;
+
+		}
+		#phai a{
+			color: black;
+			display: block;
+			text-decoration: none;
+		}
+		.absolute{
+			right: 50px;
+			padding: 15px;
+			top: 50px;
+		}
+		
+		
+		
+*/
 /*		
 	</style>
 </head>
@@ -193,9 +224,14 @@
 				<button style="height: 25px;">Tìm kiếm</button>
 			</div>
 			<div id="phai">
-				<a href="index.php?module=common&action=login">Đăng nhập</a>
-				<b style="color: white; font-size: larger;">|</b>
-				<a href="index.php?module=common&action=register">Đăng ký</a>
+				<a href="index.php?module=common&action=logout"><b style="color: white; font-size: 20px;float: right;">Đăng xuất</b></a>
+			<b style="color: white; float: right;">|</b>
+			<?php 
+			if (isset($_SESSION['customer'])) {
+				echo "<h3 style='float:right; color: white;'>".$_SESSION['customer']['name']."</h3>";
+			}
+		 ?>
+				
 			</div>
 		</div>
 		<div id="gg">
