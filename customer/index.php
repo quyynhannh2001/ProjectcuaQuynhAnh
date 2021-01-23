@@ -7,7 +7,7 @@ if (isset($_GET['action'])) {
 	$action = $_GET['action'];
 }
 if ($module == "" || $action == "") {
-	$module = "products";
+	$module = "home";
 	$action = "home";
 }
 $path = "modules/$module/$action.php";

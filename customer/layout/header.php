@@ -5,8 +5,8 @@
 	<title><?php echo $title; ?></title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="icon" href="../public/qa.png" type="image/icon type">
-	<script src="https://kit.fontawesome.com/yourcode.js"></script>
+	<link rel="icon" href="../public/qaa.png" type="image/icon type">
+<!-- 	<script src="https://kit.fontawesome.com/yourcode.js"></script> -->
 	<style type="text/css">
 		*{
 			padding: 0px;
@@ -19,7 +19,7 @@
 		}
 		#tong{
 			width: 1100px;
-			height: 100vh;
+			height: auto;
 			margin: auto;
 			background-color: white;
 
@@ -38,13 +38,13 @@
 			float: left;
 		}
 		#giua{
-			width: 50%;
+			width: 55%;
 			height: 70px;
 			float: left;
 			text-align: center;
 		}
 		#phai{
-			width: 25%;
+			width: 20%;
 			height: 70px;
 			float: left;
 			text-align: right;
@@ -183,6 +183,10 @@
 
 
 		}
+		.active{
+			background-color: #444444;
+		
+		}
 		/*#phai li{
 			position: relative;
 		}
@@ -224,11 +228,16 @@
 				<button style="height: 25px;">Tìm kiếm</button>
 			</div>
 			<div id="phai">
-				<a href="index.php?module=common&action=logout"><b style="color: white; font-size: 20px;float: right;">Đăng xuất</b></a>
-			<b style="color: white; float: right;">|</b>
+				
+			
 			<?php 
 			if (isset($_SESSION['customer'])) {
-				echo "<h3 style='float:right; color: white;'>".$_SESSION['customer']['name']."</h3>";
+				echo "<h3 style='float:left; color: white; padding-left: 20px;'>".$_SESSION['user']['name']."</h3>";
+				echo "<a href='index.php?module=common&action=logout'><b style='color: white; font-size: 20px;float: right;'>Đăng xuất</b></a>";
+			}
+			else{
+				echo "<a href='index.php?module=common&action=login'><b style='color: white; font-size: 20px;float: left; padding-left: 20px;'>Đăng nhập</b></a>";
+				echo "<a href='index.php?module=common&action=register'><b style='color: white; font-size: 20px;float: right;'>Đăng ký</b></a>";
 			}
 		 ?>
 				
@@ -240,40 +249,40 @@
 					<b style="font-size: xx-large;color: white; line-height: 60px; padding-left: 55px;">Danh mục</b>
 				</div>
 				<div id="o2">
-					<a href="#">Trang chủ</a>
+					<a class="<?php if($action=='home') echo 'active' ?>" href="index.php">Trang chủ</a>
 				</div>
 				<div id="o3">
-					<a href="#">Thương hiệu</a>
+					<a class="<?php if($action=='thuonghieu') echo 'active' ?>" href="#">Thương hiệu</a>
 				</div>
 				<div id="o4">
-					<a href="#">Khuyến mãi</a>
+					<a class="<?php if($action=='khuyenmai') echo 'active' ?>" href="#">Khuyến mãi</a>
 				</div>
 				<div id="o5">
-					<a href="#">Tra cứu đơn</a>
+					<a class="<?php if($action=='tracuu') echo 'active' ?>" href="#">Tra cứu đơn</a>
 				</div>
 				<div id="o6">
-					<a href="#">Xu hướng</a>
+					<a class="<?php if($action=='xuhuong') echo 'active' ?>" href="#">Xu hướng</a>
 				</div>
 			</div>
 			<div id="gg2">
 				<ul>
 					<li>
-						<a href="#">Chăm sóc cá nhân</a>
+						<a class="<?php if($action=='list_canhan') echo 'active' ?>" href="index.php?module=products&action=list_canhan">Chăm sóc cá nhân</a>
 					</li>
 					<li>
-						<a href="#">Chăm sóc sắc đẹp</a>
+						<a class="<?php if($action=='list_sacdep') echo 'active' ?>" href="index.php?module=products&action=list_sacdep">Chăm sóc sắc đẹp</a>
 					</li>
 					<li>
-						<a href="#">Chăm sóc sức khỏe</a>
+						<a class="<?php if($action=='list_suckhoe') echo 'active' ?>" href="index.php?module=products&action=list_suckhoe">Chăm sóc sức khỏe</a>
 					</li>
 					<li>
-						<a href="#">Dành cho phái mạnh</a>
+						<a class="<?php if($action=='list_phaimanh') echo 'active' ?>" href="index.php?module=products&action=list_phaimanh">Dành cho phái mạnh</a>
 					</li>
 					<li>
-						<a href="#">Thời trang & phụ kiện</a>
+						<a class="<?php if($action=='list_ttpk') echo 'active' ?>" href="index.php?module=products&action=list_ttpk">Thời trang & phụ kiện</a>
 					</li>
 					<li>
-						<a href="#">Chăm sóc da mụn</a>
+						<a class="<?php if($action=='list_damun') echo 'active' ?>" href="index.php?module=products&action=list_damun">Chăm sóc da mụn</a>
 					</li>
 				</ul>
 			</div>
@@ -295,5 +304,7 @@
 				<a href="#"><i class="fa fa-youtube-play" style="font-size:36px; color: white"></i></a>
 			</div>
 		</div>
-	</div>
+		<div id="content">
+			
+		
 			

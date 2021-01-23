@@ -21,16 +21,19 @@ require_once("layout/header.php");
  	#insert-brands{
  		padding: 15px;
  		font-size: larger;
- 		margin-top: 50px;
+ 		padding-left: 40px;
+
+ 		/*margin-top: 50px;*/
 
  	}
  	#insert-brands form{
- 		margin: auto;
- 		padding: 100px;
- 		background-color: lightgray;
- 		margin-left: 200px;
- 		margin-right: 200px;
+ 		/*margin: auto;*/
+ 		padding: 150px;
+ 		background-color: #EEEEEE;
  		text-align: center;
+ 		padding-top: 150px;
+ 		/*padding-right: 20px;*/
+ 		
 
  	}
  </style>
@@ -39,16 +42,18 @@ require_once("layout/header.php");
  		<label>
  			<b>Tên thương hiệu</b><br>
  			
- 			<input type="text" name="name" required="" placeholder="Tên thương hiệu:" style="height: 25px; width: 250px;">
+ 			<input type="text" name="name" required="" placeholder="Tên thương hiệu:" style="height: 25px; width: 250px; text-align: center;">
  		</label>
  		<br><br>
  		<label>
  			<b>Xuất xứ</b><br>
- 			<input type="text" name="madein" required="" placeholder="Tên nước sản xuất:" style="height: 25px; width: 250px;">
+ 			<input type="text" name="madein" required="" placeholder="Tên nước sản xuất:" style="height: 25px; width: 250px; text-align: center;">
  		</label>
  		<br><br>
  		<button type="submit" name="btn" style="height: 25px; width: 60px;"><b>Thêm</b></button>
+
  	</form>
+ 	
  </div>
 
 

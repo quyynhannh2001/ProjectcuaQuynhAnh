@@ -20,28 +20,38 @@ require_once("layout/header.php");
  	#insert-types{
  		padding: 15px;
  		font-size: larger;
- 		margin-top: 50px;
+ 		padding-left: 40px;
+
+
+ 		
+ 		/*margin-top: 50px;*/
 
  	}
  	#insert-types form{
- 		margin: auto;
- 		padding: 100px;
- 		background-color: lightgray;
- 		margin-left: 200px;
- 		margin-right: 200px;
+ 		/*margin: auto;*/
+ 		padding: 150px;
+ 		background-color: #EEEEEE;
  		text-align: center;
+ 		padding-top: 150px;
+ 		padding-bottom: 180px;
+
+ 		/*padding-right: 20px;*/
+ 		
 
  	}
+ 
  </style>
  <div id="insert-types">
  	<form method="POST">
+ 		<br><br><br>
  		<label>
  			<b>Tên loại sản phẩm:</b>
  			
- 			<input type="text" name="name" required="" placeholder="Tên loại sản phẩm:" style="height: 25px; width: 250px;">
+ 			<input type="text" name="name" required="" placeholder="Tên loại sản phẩm:" style="height: 25px; width: 250px; text-align: center;">
  		</label>
  		<br><br>
  		<button type="submit" name="btn" style="height: 25px; width: 60px;"><b>Thêm</b></button>
+ 		
  	</form>
  </div>
 

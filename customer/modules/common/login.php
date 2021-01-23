@@ -2,9 +2,9 @@
 	$title = "Đăng nhập";
 	$error = "";
 	if (isset($_POST['btn'])){
-		$email = $_POST['email'];
+		$user = $_POST['user'];
 		$pass = md5($_POST['pass']);
-		$sql = "SELECT id, name FROM customers WHERE email = '$email' AND password = '$pass'";
+		$sql = "SELECT id, name FROM customers WHERE (email = '$user' OR phone_no = '$user') AND password = '$pass'";
 		$result = mysqli_query($conn, $sql);
 		if (!$result){
 			$error = mysqli_error($conn);
@@ -12,9 +12,9 @@
 		else{
 			if(mysqli_num_rows($result)==1){
 				$row = mysqli_fetch_assoc($result);
-				$_SESSION['customer']['id'] = $row['id'];
-				$_SESSION['customer']['name'] = $row['name'];
-				header("Location:index.php?module=products&action=home");
+				$_SESSION['user']['id'] = $row['id'];
+				$_SESSION['user']['name'] = $row['name'];
+				header("Location:index.php");
 			}
 			else{
 				$error = "Thông tin tài khoản không chính xác";
@@ -69,11 +69,12 @@
 		</div>
 		<br><br><br>
 		<div id="giua">
+			<h2 style="color: red"><?php echo "$error"; ?></h2>
 			<form method="POST">
 				<h1 style="font-size: 40px;">Đăng nhập</h1>
 				<h2 style="color: red;"><?php echo $error; ?></h2>
 				<br>
-				<input type="email" name="email" placeholder="Email:" required="" style="height: 25px; width: 250px;">
+				<input type="text" name="user" placeholder="Email/Số điện thoại: " required="" style="height: 25px; width: 250px;">
 				<br><br>
 				<input type="password" name="pass" placeholder="Mật khẩu" required="" style="height: 25px; width: 250px;">
 				<br><br>

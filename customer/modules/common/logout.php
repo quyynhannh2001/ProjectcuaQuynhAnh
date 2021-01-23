@@ -1,5 +1,5 @@
 <?php 
-	unset($_SESSION['customer']);
+	unset($_SESSION['user']);
 
 header("Location:index.php");
 ?>

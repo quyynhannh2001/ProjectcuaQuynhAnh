@@ -17,7 +17,7 @@
 		}
 		#tong{
 			width: 1100px;
-			height: 93vh;
+			height: 92.8vh;
 			margin: auto;
 			background-color: white;
 		}
@@ -37,10 +37,11 @@
 			border-left: 1px solid white;
 		}
 		#nd{
-			height: 90vh;
+			height: 82.2vh;
 			width: 900px;
 			float: left;
 			padding: 20px;
+			
 		}
 		#menu ul{
 			list-style-type: none;

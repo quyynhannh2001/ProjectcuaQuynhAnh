@@ -3,7 +3,7 @@ $title = "Danh sách sản phẩm";
 require_once ("layout/header.php");
 
 require_once ("config/connect.php");
-$sql = "SELECT * FROM products";
+$sql = "SELECT id, name, url, price, status FROM products";
 if(isset($_GET['page'])){
 	$page = $_GET['page'];
 }
@@ -11,7 +11,7 @@ else{
 	$page = 1;
 }
 $tong_sp = mysqli_fetch_assoc(mysqli_query($conn,"SELECT COUNT(id) as 'tong_sp' FROM `products`"))['tong_sp'];
-$limit = 3;
+$limit = 2;
 $tong_so_trang = ceil($tong_sp/$limit);
 if($page > $tong_so_trang){
 	$page = $tong_so_trang;
@@ -42,7 +42,6 @@ require_once("config/close.php");
 			border: 2px solid black;
 			text-align: center;
 			font-size: large;
-
 		}
 		tr, th, td{
 			border: 2px solid black;
@@ -53,8 +52,15 @@ require_once("config/close.php");
 
 		
 	</style>
+	<script type="text/javascript">
+	function confirmDelete(){
+		return confirm("Thao tác này sẽ xóa toàn bộ bản ghi nhưng bạn vẫn có thể thêm lại?");
+	}
+</script>
 </head>
 <body style="text-align: center;"> 
+		<a style="float: left;" href="index.php?module=products&action=insert"><h2><u>Thêm sản phẩm</u></h2></a>
+		<br><br>
 		<a href="index.php?module=products&action=list&page=<?php if($page > 1) {echo ($page-1);} else echo $page; ?>" ><i class="fa fa-arrow-left" style="font-size:24px"></i></a>
 	    <b style="font-size: 25px;"><?php echo $page; ?></b>
 	    <a href="index.php?module=products&action=list&page=<?php if($page < $tong_so_trang) {echo ($page+1);} else echo $page; ?>"><i class="fa fa-arrow-right" style="font-size:24px"></i></a>
@@ -63,90 +69,48 @@ require_once("config/close.php");
 	<table>
 		<tr>
 			<th>ID</th>
-			<th>Tên</th>
-			<th>Hình ảnh</th>
+			<th>Sản phấm</th>
 			<th>Giá</th>
-			<th>Mô tả</th>
 			<th>Tình trạng</th>
-			<th>Kiểu</th>
-			<th>Thương hiệu</th>
 			<th>Thao tác</th>
 		</tr>
 		<?php 
 			if(mysqli_num_rows($result)==0){
-				echo "<tr><td colspan = '9'><i>Chưa có sản phẩm nào...</i></td></tr>";
+				echo "<tr><td colspan = '5'><i>Chưa có sản phẩm nào...</i></td></tr>";
 			}
 			else{
 				foreach($result as $row){
 					echo "<tr>";
 						echo "<td>".$row['id']."</td>";
-						echo "<td>".$row['name']."</td>";
 						echo "<td>";
+							echo "<b style = 'font-size: larger;'>".$row['name']."</b><br>";
 							$url = $row['url'];
-							echo "<img src='$url' width='130.49px' >";
+							echo "<img src='$url' width='130px'>";
+
 						echo "</td>";
-						echo "<td>".$row['price']."</td>";
-						echo "<td>".$row['description']."</td>";
+						echo "<td>".$row['price']."<u>đ</u>"."</td>";
 						$status = "";
 						
 							if ($row['status'] == 1) {
 								$status = "Còn";
-								// echo $status;
+							}
+							else if ($row['status'] == 0) {
+								$status = "Hết";
+							}
+							else if ($row['status'] == 2) {
+								$status = "Đang về hàng";
 							}
 							else{
-								$status = "Hết";
-								// echo $status;
+								$status = "Ngừng kinh doanh";
 							}
 						echo "<td>".$status."</td>";
-							$type = "";
-							if ($row['id_type'] == 1) {
-								$type = "Chăm sóc sắc đẹp";
-								// echo $type;
-							}
-							elseif ($row['id_type'] == 2) {
-								$type = "Chăm sóc cá nhân";
-								// echo $type;
-							}
-							elseif ($row['id_type'] == 3) {
-								$type = "Chăm sóc sức khỏe";
-								// echo $type;
-							}
-							elseif ($row['id_type'] == 4) {
-								$type = "Dành cho phái mạnh";
-								// echo $type;
-							}
-							elseif ($row['id_type'] == 5) {
-								$type = "Thời trang và phụ kiện";
-								// echo $type;
-							}
-							else {
-								$type = "Chăm sóc da mụn";
-								// echo $type;
-							}
-						echo "<td>".$type."</td>";
-						$brand = "";
-						if ($row['id_brand'] == 1) {
-							$brand = "MAC";
-							// echo $brand;
-						}
-						elseif ($row['id_brand'] == 2) {
-							$brand = "BBIA";
-							// echo $brand;
-						}
-						elseif ($row['id_brand'] == 3) {
-							$brand = "ROMANO";
-							// echo $brand;
-						}
-						elseif ($row['id_brand'] == 4) {
-							$brand = "SAKURA";
-							// echo $brand;
-						}
-						else{
-							$brand = "3CE";
-							// echo $brand;
-						}
-						echo "<td>".$brand."</td>";
-						
+						echo "<td>";
+						$id = $row['id'];
+							echo "<a href = 'index.php?module=products&action=edit&id=$id'>Sửa</a>";
+							echo "||";
+							echo "<a onclick = 'return confirmDelete()' href = 'index.php?module=products&action=delete&id=$id'>Xóa</a>";
+
+						echo "</td>";
 					echo "</tr>";
 				}
 			}

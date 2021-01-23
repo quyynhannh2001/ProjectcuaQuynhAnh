@@ -37,16 +37,19 @@ require_once("layout/header.php");
  	#edit-brands{
  		padding: 15px;
  		font-size: larger;
- 		margin-top: 50px;
+ 		padding-left: 40px;
+ 		
+ 		/*margin-top: 50px;*/
 
  	}
  	#edit-brands form{
- 		margin: auto;
- 		padding: 100px;
- 		background-color: lightgray;
- 		margin-left: 200px;
- 		margin-right: 200px;
+ 		/*margin: auto;*/
+ 		padding: 150px;
+ 		background-color: #EEEEEE;
  		text-align: center;
+ 		padding-top: 150px;
+ 		/*padding-right: 20px;*/
+ 		
 
  	}
  </style>
@@ -55,15 +58,16 @@ require_once("layout/header.php");
  		<label>
  			<b>Tên thương hiệu</b><br>
  			
- 			<input type="text" name="name" required="" placeholder="Tên thương hiệu:" style="height: 25px; width: 250px;" value="<?php echo $name; ?>">
+ 			<input type="text" name="name" required="" placeholder="Tên thương hiệu:" style="height: 25px; width: 250px; text-align: center;" value="<?php echo $name; ?>">
  		</label>
  		<br><br>
  		<label>
  			<b>Xuất xứ</b><br>
- 			<input type="text" name="madein" required="" placeholder="Tên nước sản xuất:" style="height: 25px; width: 250px;" value="<?php echo $madein; ?>">
+ 			<input type="text" name="madein" required="" placeholder="Tên nước sản xuất:" style="height: 25px; width: 250px; text-align: center;" value="<?php echo $madein; ?>">
  		</label>
  		<br><br>
  		<button type="submit" name="btn" style="height: 25px; width: 100px;"><b>Cập nhật</b></button>
+ 		
  	</form>
 </div>
 <?php 
