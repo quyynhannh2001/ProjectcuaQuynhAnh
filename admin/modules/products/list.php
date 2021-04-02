@@ -1,9 +1,14 @@
 <?php 
 $title = "Danh sách sản phẩm";
+$key="";
 require_once ("layout/header.php");
 
 require_once ("config/connect.php");
 $sql = "SELECT id, name, url, price, status FROM products";
+if (isset($_GET['key'])) {
+	$key = $_GET['key'];
+	$sql = " SELECT id, name, url, price, status FROM products WHERE name LIKE '%$key%'";
+}
 if(isset($_GET['page'])){
 	$page = $_GET['page'];
 }
@@ -22,12 +27,14 @@ if($page < 1){
 $offset = ($page - 1)* $limit;
 
 $sql = $sql." LIMIT $offset,$limit";
+
 $result = mysqli_query($conn,$sql);
 if($result == false){
 	$error = mysqli_error($conn);
 	require_once("config/close.php");
 	die($error);
 }
+
 require_once("config/close.php");
 ?>
 <!DOCTYPE html>
@@ -41,14 +48,65 @@ require_once("config/close.php");
 			border-collapse:collapse;
 			border: 2px solid black;
 			text-align: center;
-			font-size: large;
+			/*font-size: large;*/
+			/*margin-top: 10px;*/
 		}
 		tr, th, td{
 			border: 2px solid black;
+			padding: 5px;
 		}
 		a{
 			text-decoration: none;
 		}
+		.phantren{
+			width: 100%;
+			padding-bottom: 10px;
+		}
+		#trentrai{
+			width: 35%;
+			float: left;
+		}
+		#trengiua{
+			width: 30%;
+			float: left;
+			padding-top: 40px;
+		}
+		#trenphai{
+			width: 35%;
+			float: left;
+			text-align: right;
+		}
+		button, input{
+			border: 0;
+			border-radius: 20px;
+			}
+		input{
+			/*width: 250px;*/
+			border-bottom: 2px solid #444;
+			padding: 12px 12px 12px 20px;
+			/*height: 38px;*/
+		}
+		button{
+			/*width: 250px;*/
+			/*padding-right: 10px;*/
+			margin-left: 5px;
+		}
+		input, button{
+			font-size: 13.3333px;
+			font-weight: 600;
+		}
+		button{
+			color: #fff;
+			background-image: linear-gradient(to right, #868686, black); 
+			cursor: pointer;
+		}
+		input:focus, input:focus::placeholder, input:focus+i{
+			color: black;
+		}
+		input:focus, button: focus{
+			outline: 0;
+		}
+
 
 		
 	</style>
@@ -59,12 +117,25 @@ require_once("config/close.php");
 </script>
 </head>
 <body style="text-align: center;"> 
-		<a style="float: left;" href="index.php?module=products&action=insert"><h2><u>Thêm sản phẩm</u></h2></a>
-		<br><br>
-		<a href="index.php?module=products&action=list&page=<?php if($page > 1) {echo ($page-1);} else echo $page; ?>" ><i class="fa fa-arrow-left" style="font-size:24px"></i></a>
+	<div class="phantren">
+		<div id="trentrai">
+		<a style="float: left;" href="index.php?module=products&action=insert"><button style="width: 200px; height: 38px;">Thêm sản phẩm</button></a>
+		</div>
+		<!-- <br><br> -->
+		<div id="trengiua">
+		<a href="index.php?module=products&action=list&key=<?php echo $key; ?>&page=<?php if($page > 1) {echo ($page-1);} else echo $page; ?>" ><i class="fa fa-arrow-left" style="font-size:24px"></i></a>
 	    <b style="font-size: 25px;"><?php echo $page; ?></b>
-	    <a href="index.php?module=products&action=list&page=<?php if($page < $tong_so_trang) {echo ($page+1);} else echo $page; ?>"><i class="fa fa-arrow-right" style="font-size:24px"></i></a>
- 
+	    <a href="index.php?module=products&action=list&key=<?php echo $key; ?>&page=<?php if($page < $tong_so_trang) {echo ($page+1);} else echo $page; ?>"><i class="fa fa-arrow-right" style="font-size:24px"></i></a>
+	    </div>
+	    <div id="trenphai">
+	 		<form>
+	 			<input type="hidden" name="module" value="products">
+	 			<input type="hidden" name="action" value="list">
+						<input type="text" name="key" placeholder="Nhập sản phẩm cần tìm" style="width: 250px; height: 38px; font-size: 15px;" autocomplete="off">
+						<button style="padding-bottom: 4px;" type="submit" name="btnSearch" ><i class="fa fa-search" style="font-size: 25px; height: 25px; color: white;"></i></button>
+					</form>
+		</div>
+	</div>
   <br><br> 
 	<table>
 		<tr>
@@ -83,9 +154,9 @@ require_once("config/close.php");
 					echo "<tr>";
 						echo "<td>".$row['id']."</td>";
 						echo "<td>";
-							echo "<b style = 'font-size: larger;'>".$row['name']."</b><br>";
+							echo "<b>".$row['name']."</b><br>";
 							$url = $row['url'];
-							echo "<img src='$url' width='130px'>";
+							echo "<img src='$url' width='165px' height='165px;' >";
 
 						echo "</td>";
 						echo "<td>".$row['price']."<u>đ</u>"."</td>";
