@@ -39,7 +39,21 @@
 			background: url(../public/nen.png);
 			background-repeat: no-repeat;
 			background-size: 1370px 657px;
+			background-attachment: fixed;
 		}
+		@media screen
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) 
+  and (-webkit-min-device-pixel-ratio: 1) { 
+}
+ 
+/* ----------- Retina Screens ----------- */
+@media screen
+  and (min-device-width: 1200px) 
+  and (max-device-width: 1600px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (min-resolution: 192dpi) { 
+}
 		#tong{
 			width: 1100px;
 			height: 100vh;
